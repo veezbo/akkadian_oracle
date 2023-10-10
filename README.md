@@ -4,7 +4,7 @@
 
 Have you ever visited a museum with an ancient people's exhibit? Surely you've seen the various artifacts that are available. But have you ever stopped to wonder how those people from thousands of years ago really saw the world? It's been impossible to try to even get a sense without being a historian or directly involved in that field- or at least, until now!
 
-**AkkadianOracle** lets you talk to someone from 3000 years ago who lives in Ancient Mesopotamia and now magically speaks English and can communicate with you across time. This is your chance to better understand how Akkadians viewed the world and how their common sense understanding differs from ours.
+AkkadianOracle lets you talk to someone from 3000 years ago who lives in Ancient Mesopotamia and now magically speaks English and can communicate with you across time. This is your chance to better understand how Akkadians viewed the world and how their common sense understanding differs from ours.
 
 You can try out the totally free version (requires a free Poe account) based on ChatGPT here:  
 https://poe.com/AkkadianOracle
@@ -13,13 +13,22 @@ Optionally, there is a version for Poe subscribers based on GPT-4 here:
 https://poe.com/AkkadianArchon
 
 ## Sample Chats
-Here are some insightful conversations:
+Here are some particularly insightful conversations we've already had:
 
 - Crime and Punishment: https://poe.com/s/5qSftTCZoQysXUjQw0vh
 - Morality and Virtuousness: https://poe.com/s/9LwPZWpbsSM7WPw9jMHl
 - Labor and Organization of Society: https://poe.com/s/x56WImkBveeOD09JUqgE
 
-Please send over any that you had that you particularly found insightful!
+Please send over any that you had that you found useful or interesting!
+
+## Project Goal
+The overall goal of this project is to create realistic chatbots that can communicate as if they are someone with the latent knowledge, sensibilities, and culture all imbued within the textual corpus of an ancient language. AkkadianOracle is an example using a corpus of Akkadian from the Neo-Assyrian period. 
+
+Some potential concrete use cases are:
+
+1. To supplement an existing museum's ancient people's exhibit with a deeper, interactive window into the past.
+2. To accelerate onboarding of new researchers into a particular historical time period.
+3. To be a companion to field test new epistemological theories related to a particular time period.
 
 ## Implementation Details
 **AkkadianOracle** is a chatbot built using the Poe platform on top of ChatGPT and GPT-4 with Retrieval-Augmented Generation (RAG) with my released [Akkadian English corpus](https://huggingface.co/datasets/veezbo/akkadian_english_corpus) [2].
@@ -30,12 +39,8 @@ In this repo, these are the relevant files and their descriptions:
 - `corpus.py` loads the HuggingFace dataset into memory, and additionally implements the retrieval part of RAG, retrieving the most relevant sentences from the corpus based on the user's question
 - `prompt.py` assembles the prompt for the LLM based on the relevant context and user question
 
-Implementation of chatbot built on Poe that lets you communicate with someone from 3000 years ago in Ancient Mesopotamia. How does their common sense understanding and worldview differ from yours?
-
 ## Alternative Approaches
-The overall goal of this project is to create a realistic chatbot that can communicate as if is someone with knowledge of Akkadian language, sensibilities, and culture all latent within a textual corpus. 
-
-The RAG-based approach used for AkkadianOracle is the best approach so far. An alternative approach which has not worked so well is attempting to fine-tune smaller LLMs using the same corpus. This fine-tuning was attempted both on all paramters, and with [PEFT](https://github.com/huggingface/peft) [5]. The notebooks for both are shared in this repo.
+The RAG-based approach used for AkkadianOracle has produced the best results so far. An alternative approach which has not worked so well is attempting to fine-tune smaller LLMs using the same corpus. This fine-tuning was attempted both on all paramters, and with [PEFT](https://github.com/huggingface/peft) [5]. The notebooks for both are shared in this repo.
 
 It is not known whether PEFTing big LLMs (say, at the scale of ChatGPT) will work. It seems plausible it would, but it is rather difficult to test due to the scale.
 
