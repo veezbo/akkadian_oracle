@@ -1,6 +1,6 @@
 # AkkadianOracle
 
-![Akkadian Tablet](img/Tablet_describing_goddess_Inanna's_battle_with_the_mountain_Ebih,_Sumerian_-_Oriental_Institute_Museum,_University_of_Chicago_-_DSC07117_512x512.jpeg) [1]
+![Akkadian Tablet](img/Tablet_describing_goddess_Inanna's_battle_with_the_mountain_Ebih,_Sumerian_-_Oriental_Institute_Museum,_University_of_Chicago_-_DSC07117_256x256.jpeg) [1]
 
 Have you ever visited a museum with an ancient people's exhibit? Surely you've seen the various artifacts that are available. But have you ever stopped to wonder how those people from thousands of years ago really saw the world? It's been impossible to try to even get a sense without being a historian or directly involved in that field- or at least, until now!
 
