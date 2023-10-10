@@ -40,7 +40,7 @@ In this repo, these are the relevant files and their descriptions:
 - `prompt.py` assembles the prompt for the LLM based on the relevant context and user question
 
 ## Alternative Approaches
-The RAG-based approach used for AkkadianOracle has produced the best results so far. An alternative approach which has not worked so well is attempting to fine-tune smaller LLMs using the same corpus. This fine-tuning was attempted both on all paramters ([all paramter fine-tuning notebook](notebooks/llama2_7b_akkadian_full_finetuning.ipynb)), and with [PEFT](https://github.com/huggingface/peft) [5] ([PEFT notebook](notebooks/llama2_7b_akkadian_peft_finetuning.ipynb)), and both notebooks are linked and present in the notebooks folder along with sample generations.
+The RAG-based approach used for AkkadianOracle has produced the best results so far. An alternative approach which has not worked so well is attempting to fine-tune smaller LLMs (e.g. Llama-2-7b) using the same corpus. This fine-tuning was attempted both on all paramters ([all paramter fine-tuning notebook](notebooks/llama2_7b_akkadian_full_finetuning.ipynb)), and with [PEFT](https://github.com/huggingface/peft) [5] ([PEFT notebook](notebooks/llama2_7b_akkadian_peft_finetuning.ipynb)), and both notebooks are linked and present in the notebooks folder along with sample generations.
 
 It is not known whether PEFTing big LLMs (say, at the scale of ChatGPT) will work. It seems plausible it would, but it is rather difficult to test due to the scale.
 
