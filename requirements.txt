@@ -1,3 +1,4 @@
 fastapi-poe==0.0.17
 scikit-learn
 datasets
+modal
