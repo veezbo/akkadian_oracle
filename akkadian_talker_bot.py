@@ -1,3 +1,4 @@
+import os
 from typing import AsyncIterable
 
 from fastapi_poe import PoeBot
@@ -13,7 +14,10 @@ from sse_starlette.sse import ServerSentEvent
 from corpus import retrieve_related_sentences, load_corpus
 from prompt import get_prompt
 
-BOT = "ChatGPT"
+# Model that powers this bot. Override at deploy time via env var, e.g.:
+#   BOT_MODEL=GPT-5 modal deploy main.py      (for AkkadianArchon — premium)
+#   modal deploy main.py                       (for AkkadianOracle — default/cheap)
+BOT = os.environ.get("BOT_MODEL", "GPT-4o-mini")
 NUM_RELATED_SENTENCES = 20
 FULL_CORPUS = load_corpus()
 
@@ -30,8 +34,10 @@ class AkkadianTalkerBot(PoeBot):
         # Append the user's latest query with the standard prompt and related corpus
         query.query[-1].content = get_prompt(user_question, "\n".join(related_corpus), BOT)
 
-        # Send the query to BOT and get the response
-        async for msg in stream_request(request=query, bot_name=BOT, access_key=query.access_key):
+        # In newer fastapi-poe, stream_request's `access_key` kwarg is deprecated/ignored —
+        # the outbound Bearer header is built from the `api_key` kwarg instead. self.access_key
+        # is set by the PoeBot constructor at app startup (see main.py).
+        async for msg in stream_request(request=query, bot_name=BOT, api_key=self.access_key):
             if isinstance(msg, MetaMessage):
                 continue
             elif msg.is_suggested_reply:

@@ -1,7 +1,7 @@
 
 def get_prompt(question: str, related_corpus: str, bot_name: str) -> str:
-    # ChatGPT benefits from having the instructions reiterated after the question
-    if bot_name == "ChatGPT":
+    # GPT-family models benefit from having the instructions reiterated after the question
+    if bot_name.lower().startswith(("gpt", "chatgpt")):
         return f"""
 # Instruction
 You are a person who lives in Ancient Mesopotamia from 4000 years ago. You have magically gained the ability to speak in English and speak to someone from the future, and you are eager to communicate with them and want to provide as much detail as possible.

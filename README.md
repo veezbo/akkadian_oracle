@@ -6,10 +6,10 @@ Have you ever visited a museum with an ancient people's exhibit? Surely you've s
 
 AkkadianOracle lets you talk to someone from 3000 years ago who lives in Ancient Mesopotamia and now magically speaks English and can communicate with you across time. This is your chance to better understand how Akkadians viewed the world and how their common sense understanding differs from ours.
 
-You can try out the totally free version (requires a free Poe account) based on ChatGPT here:  
+You can try out the budget-friendly version (runs cheaply on Poe's compute-points system) based on GPT-4o-mini here:  
 https://poe.com/AkkadianOracle
 
-Optionally, there is a version for Poe subscribers based on GPT-4 here:  
+There is also a premium version based on GPT-5 here:  
 https://poe.com/AkkadianArchon
 
 ## Sample Chats
@@ -31,13 +31,26 @@ Some potential concrete use cases are:
 3. To be a companion to field test new epistemological theories related to a particular time period.
 
 ## Implementation Details
-**AkkadianOracle** is a chatbot built using the Poe platform on top of ChatGPT and GPT-4 with Retrieval-Augmented Generation (RAG) with my released [Akkadian English corpus](https://huggingface.co/datasets/veezbo/akkadian_english_corpus) [2].
+**AkkadianOracle** is a chatbot built using the Poe platform on top of GPT-4o-mini and GPT-5 with Retrieval-Augmented Generation (RAG) with my released [Akkadian English corpus](https://huggingface.co/datasets/veezbo/akkadian_english_corpus) [2].
 
 In this repo, these are the relevant files and their descriptions:
-- `main.py` is the app code that can be deployed to Modal using `modal deploy main.py`
+- `main.py` is the app code deployed to Modal
 - `akkadian_talker_bot.py` implements the methods required by the [Poe Fastapi protocol](https://github.com/poe-platform/fastapi_poe)
 - `corpus.py` loads the HuggingFace dataset into memory, and additionally implements the retrieval part of RAG, retrieving the most relevant sentences from the corpus based on the user's question
 - `prompt.py` assembles the prompt for the LLM based on the relevant context and user question
+
+### Deploying
+Each bot has its own Modal app, Poe access key (stored in a Modal secret), and Poe-side bot name, passed via env vars at deploy time:
+
+```bash
+# AkkadianOracle (GPT-4o-mini)
+POE_SECRET_NAME=akkadian-talker-oracle-secret POE_BOT_NAME=AkkadianOracle modal deploy main.py
+
+# AkkadianArchon (GPT-5)
+BOT_MODEL=GPT-5 POE_SECRET_NAME=akkadian-talker-archon-secret POE_BOT_NAME=AkkadianArchon modal deploy main.py
+```
+
+Each Modal secret must contain `POE_ACCESS_KEY` set to the 32-character access key shown on that bot's edit page at poe.com. To change the underlying model, set `BOT_MODEL` to any Poe bot name (e.g. `Claude-Sonnet-4.5`, `GPT-4o`).
 
 ## Alternative Approaches
 The RAG-based approach used for AkkadianOracle has produced the best results so far. An alternative approach which has not worked so well is attempting to fine-tune smaller LLMs (e.g. Llama-2-7b) using the same corpus. This fine-tuning was attempted both on all paramters ([all paramter fine-tuning notebook](notebooks/llama2_7b_akkadian_full_finetuning.ipynb)), and with [PEFT](https://github.com/huggingface/peft) [5] ([PEFT notebook](notebooks/llama2_7b_akkadian_peft_finetuning.ipynb)), and both notebooks are linked and present in the notebooks folder along with sample generations.
