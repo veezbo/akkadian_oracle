@@ -12,12 +12,14 @@ from akkadian_talker_bot import AkkadianTalkerBot, BOT
 SECRET_NAME = os.environ.get("POE_SECRET_NAME", "akkadian-talker-secret")
 POE_BOT_NAME = os.environ.get("POE_BOT_NAME", "")
 
-# Bake POE_BOT_NAME into the image so it's available inside the container at runtime,
-# not just locally at deploy time. .env() must come before add_local_python_source().
+# Bake POE_BOT_NAME and BOT_MODEL into the image so they're available inside the
+# container at runtime, not just locally at deploy time. Without this, the container's
+# `BOT = os.environ.get("BOT_MODEL", ...)` would fall back to its default.
+# .env() must come before add_local_python_source().
 image = (
     Image.debian_slim()
     .pip_install_from_requirements("requirements.txt")
-    .env({"POE_BOT_NAME": POE_BOT_NAME})
+    .env({"POE_BOT_NAME": POE_BOT_NAME, "BOT_MODEL": BOT})
     .add_local_python_source("akkadian_talker_bot", "corpus", "prompt")
 )
 app = App(f"akkadian-talker-{BOT}")
